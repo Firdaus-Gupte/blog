@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Grape risk — single article (editable Shadow DOM)</title>
@@ -8,11 +9,44 @@
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap');
   *{box-sizing:border-box;}
   body{ margin:0; background:#f7f4ef; color:#1a1410; font-family:'DM Mono', monospace; }
-  main{ max-width: 1020px; margin: 0 auto; padding: 42px 22px 90px; }
+  main{   max-width: 860px;
+  margin: 0 auto;
+  padding: 42px 22px 90px; margin: 0 auto; padding: 42px 22px 90px; }
+  .article-text p{
+  margin:0.4em 0;
+}
+
+.article-text{
+  font-family:'EB Garamond', Garamond, serif;
+  font-size:20px;
+  line-height:1.5;
+}
+
+sup {
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+.article-text p{
+  margin:0.4em 0;
+}
+
 
   h1{ font-family:'Fraunces', serif; font-weight:700; letter-spacing:-0.03em; font-size:clamp(1.9rem, 3.6vw, 2.6rem); margin: 0 0 10px; }
   .lede{ font-size:0.9rem; line-height:1.85; color:#5a5248; max-width: 90ch; }
   hr{ border:0; height:1px; background:rgba(26,20,16,0.12); margin: 26px 0 18px; }
+
+ .article-subtitle{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  font-size:clamp(1.2rem, 2vw, 1.45rem);
+  line-height:1.35;
+  color:#3e362f;
+  margin-top:10px;
+  margin-bottom:6px;
+  max-width:38ch;
+}
 
   section{ margin-top: 26px; }
   section > h2{ font-family:'Fraunces', serif; font-weight:700; letter-spacing:-0.02em; font-size:1.35rem; margin: 0 0 10px; }
@@ -32,49 +66,96 @@
 </head>
 <body>
 <main>
-  <h1>Grape risk labels and error-rate disparities</h1>
+  <h1>The Impossible Quest for Fair Algorithms</h1>
+    <div class="subtitle">
+    Why bail and sentencing algorithms face an unavoidable tradeoff
+  </div>
+  
+  <div class="byline" style="margin-top:10px; margin-bottom:26px; font-size:0.85rem; color:#6b6258;">
+    <div style="font-weight:600;">Firdaus Gupte</div>
+    <div style="margin-top:2px;">March 9, 2026</div>
+  </div>
+
 
   <nav style="margin-top:16px; padding:12px 14px; border:1px solid rgba(26,20,16,0.12); border-radius:14px; background:rgba(255,255,255,0.35); max-width: 90ch;">
     <div style="font-weight:600; margin-bottom:8px;">On this page</div>
     <ul style="margin-left:18px; line-height:1.8; color:#5a5248; font-size:0.85rem;">
-      <li><a href="#pile" style="color:inherit; text-decoration:underline;">All grapes (jumbled)</a></li>
+      <li><a href="#pile" style="color:inherit; text-decoration:underline;">A Toy Model</a></li>
       <li><a href="#base-rates" style="color:inherit; text-decoration:underline;">Base rates</a></li>
 
-      <li><a href="#buckets" style="color:inherit; text-decoration:underline;">Risk buckets</a></li>
-      <li><a href="#counts" style="color:inherit; text-decoration:underline;">Counts view</a></li>
-      <li><a href="#composition" style="color:inherit; text-decoration:underline;">Composition view</a></li>
-      <li><a href="#grouped" style="color:inherit; text-decoration:underline;">Grouped by color</a></li>
-      <li><a href="#fpr-difference" style="color:inherit; text-decoration:underline;">FPR disparity</a></li>
-      <li><a href="#fpr" style="color:inherit; text-decoration:underline;">False positive rates</a></li>
-          <li><a href="#references" style="color:inherit; text-decoration:underline;">References</a></li>
+      <li><a href="#buckets" style="color:inherit; text-decoration:underline;">A Prediction Tool Sorts Grapes into Risk Categories</a></li>
+      <li><a href="#composition" style="color:inherit; text-decoration:underline;">Percentages of Risk Labels Across Groups</a></li>
+      <li><a href="#grouped" style="color:inherit; text-decoration:underline;">False Positive Rates Differ</a></li>
+      <li><a href="#impossibility" style="color:inherit; text-decoration:underline;">Impossibility</a></li>
+
+      <li><a href="#understanding1" style="color:inherit; text-decoration:underline;">Understanding Impossibility: Calibration but Unequal Error Rates</a></li>
+      <li><a href="#understanding2" style="color:inherit; text-decoration:underline;">Understanding Impossibility: Equalized Error Rates but No Calibration</a></li>
+      <li><a href="#conclusion" style="color:inherit; text-decoration:underline;">Conclusion</a></li>
+          <li><a href="#footnotes" style="color:inherit; text-decoration:underline;">Footnotes</a></li>
 </ul>
   </nav>
-  <div class="lede">
-    This is a single continuous HTML article. Each visualization is defined in a readable <code>&lt;template&gt;</code> below,
-    then mounted into a Shadow DOM “island” so its styling and scripts don’t conflict with the rest of the page.
-  </div>
+    <div class="article-text">
+    <p>In Shawshank Redemption (1999), one of the film’s main characters, Red, played by Morgan Freeman, repeatedly appears before a parole board. Each time, the parole board asks him the same question: 
+    <p><i>“Do you feel you’ve been rehabilitated?”</i></p>
+    <p>He gives careful, rehearsed answers to try to convince them that he has been rehabilitated, but each time, they deny him parole. Finally, at the end of the film, he bluntly responds that he doesn’t think he understands what the word “rehabilitated” means, and that he thinks that the concept is something the board has made up. After that hearing, the board grants him parole. The audience is left with the feeling that the parole board has no clear, rigorous criteria for making parole decisions; they depend on the whims and fancies of individuals who use their intuition and personal judgment to make decisions about whether or not to grant an individual their freedom.</p>
+    <p>The film is set between the 1940s and the 1960s, before more sophisticated techniques were put in place to make parole decisions. Nowadays, prediction tools use sophisticated algorithms, taking into account a wide variety of factors, including an individual’s criminal history, age at first arrest, substance abuse, employment history, family background, and even attitudes toward crime. </p>
+    <p>One such tool is COMPAS, developed by a company called “Northpointe” (now Equivant). It uses statistical models trained on historical data to make predictions about things like an individual’s likelihood of violating parole or failing to show up for a sentencing hearing. 
+      In theory, it helps parole boards make <i>scientific, data-based</i> decisions, unlike what was depicted in Shawshank Redemption.</p>
+    <p>COMPAS has been used to evaluate more than 1 million defendants across the country. But in 2016, ProPublica published an article written by Julia Angwin, Jeff Larson, Surya Mattu, and Lauren Kirchner, called “<a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">Machine Bias</a>”. They looked at over 10,000 defendants in Broward County, Florida. They compared what COMPAS predicted about their likelihood to recidivate or commit another crime to what actually happened. And they made a startling accusation.</p>
+    <p>They charged that COMPAS was biased against Black defendants. It was much more likely to incorrectly flag Black defendants as "high-risk" and incorrectly flag White defendants as "low-risk".</p>
+    <p>In their words, </p>
+    <p style="margin-left: 40px;">
+        In forecasting who would re-offend, the algorithm made mistakes with Black and White defendants at roughly the same rate but in very different ways. The formula was particularly likely to falsely flag Black defendants as future criminals, wrongly labeling them this way at almost twice the rate as White defendants. White defendants were mislabeled as low risk more often than Black defendants. 
+    </p>
+    <p>The creators of COMPAS at Northpointe published a <a href="https://go.volarisgroup.com/rs/430-MBX-989/images/ProPublica_Commentary_Final_070616.pdf">response</a>, written by William Dieterich, Christina Mendoza, and Tim Brennan, to the ProPublica article. The research report rejected ProPublica’s claims. They argued that for any given risk score that COMPAS assigned, Black and White defendants with that risk score re-offended at the same rates. In their words, </p>
+     <p style="margin-left: 40px;">When the correct classification statistics are used, the data do not substantiate the ProPublica claim of racial bias towards blacks. The proper interpretation of the results... demonstrates that [the risk scores] are equally accurate for blacks and whites.</p>
+  
+    <p>Here’s the twist – <i>they were both right.</i></p> How can that be? 
+   </div>
   <hr/>
 
   
   <section>
-    <h2 id="pile">All grapes in one pile</h2>
-    <p class="lede">
-      <b>[FILLER]</b> Show all grapes together to make the “population” feel concrete. Emphasize what the colors mean and what the
-      red centers mean. <b>[EDIT THIS]</b>
-    </p>
+    <h2 id="pile">A Toy Model</h2>
+    <div class="article-text">
+    <p>The problem, it turned out, didn’t have anything to do with parole, sentencing, or racial bias. It was a problem that went deeper, to the mathematics of prediction itself.</p>
+    <p>To illustrate the problem, let’s use a toy model that abstracts away from the messy details in the data that Julia Angwin and her colleagues used.</p>
+    <p>It’s a model of grapes. Let’s take 2000 grapes, 1000 green and 1000 purple, and mix them all together. And suppose that some of them are <i>poisoned.</i></p>
+    </div>
+    
     <div class="viz-host" data-template="chart-jumbled-2000"></div>
-    <div class="caption">2000 grapes, shuffled. Color = group; red center = poisoned.</div>
+    <div class="article-text">
+    <p>There are many reasons why this model isn’t like the real-life case, besides the fact that that the real-life case is about actual human beings and the model is about grapes. Here are a few worth 
+      highlighting.
+      First, COMPAS gave individuals risk scores between 1 and 10, while our tool is more coarse-grained. It only sorts individuals into "high-risk" and "low-risk" categories. 
+    Second, in our model, grapes are either poisoned or not poisoned, and this is fixed before our tool even looks at them. In the real-life case,
+    inviduals in prison that were give higher risk scores by COMPAS were often denied parole and detained for longer. This might affect the outcomes - maybe someone who was given 
+  a higer risk score and detained will <i>because of that</i> become more or less likely to reoffend in the future. So, we might worry that in the real-life case, predictions
+  were having (at least some) affect on the outcomes. Third, since we made up data about the grapes, we know exactly how many grapes are poisoned or safe. In the real-life case, however,
+    the data had to be collected. But, naturally, the data we are
+    able to collect is not about whether individuals <i>re-offend</i>, but about whether individuals are <i>re-arrested</i>. If, for example, Black neighborhoods are more likely to be policed, 
+    Black individuals are more likely to be stopped, and Black individuals are more likely to be searched, then we might worry that the data COMPAS uses doesn't completely accurately represent
+    the underlying rate of offending, but rather reflects patterns of policing and arrest.<sup><a href="#fn1" id="ref1">1</a></sup>
+
+</p>
+<p>
+  But for our purposes these differences won't matter, since they won't affect the points in this article. Also, because of its simplifications, the toy model will be easier to use.
+</p>
+  </div>
   </section>
 
 <section>
     <h2 id="base-rates">Base rates</h2>
-    <p class="lede">
-      <b>[FILLER]</b> Introduce the setup. Explain that the two groups differ in base rates of the outcome (poisoned vs safe).
-      Say what the numbers are, and why base rates matter for fairness metrics.
-      <b>[EDIT THIS]</b>
-    </p>
+      <div class="article-text">
+    <p>Back to the model. Here is a crucial fact about the grapes in our model. The green grapes and purple grapes are not poisoned at the same rates. In other words, they have what’s called different “base rates”.</p>
+    <p>If we count up all the poisoned grapes in the original pile, we will find that 50 percent of purple grapes are poisoned (500 out of 1000) whereas 25 percent of green grapes are poisoned (250 out of 1000).</p>
+    
+    </div>
     <div class="viz-host" data-template="chart-base-rates"></div>
-    <div class="caption">Base rates: Purple (500/500) vs Green (250/750).</div>
+    
+    
+  
+  
   </section>
 
 
@@ -82,77 +163,291 @@
   
 
   <section>
-    <h2 id="buckets">The classifier sorts grapes into buckets</h2>
-    <p class="lede">
-      <b>[FILLER]</b> Explain the act of classification: the tool assigns labels (HIGH vs LOW). This is where policy and incentives enter:
-      what threshold is used, what errors are tolerable, etc. <b>[EDIT THIS]</b>
-    </p>
+    <h2 id="buckets">A Prediction Tool Sorts Grapes into Risk Categories</h2>
+      <div class="article-text">
+    
+    <p>Suppose we use an algorithmic tool, just like COMPAS, that makes <i>predictions</i> about whether or not any given grape is poisoned. 
+      It doesn’t know what we know about these grapes; it doesn’t know which ones are poisoned and which ones are safe. 
+      It sorts grapes into two categories, “high-risk” and “low-risk”, based on some historical data. </p>
+      
+      <p>Suppose that it isn't perfect: it puts some grapes that are actually poisoned in the "low-risk" category and some that are actually safe in the "high-risk" category
+        But it is fairly accurate.</p>
+        <p>Say that it splits the purple grapes, 750 and 250, into the "high-risk and "low-risk" categories, and it splits the green grapes, 125 and 875, into the "high-risk and "low-risk" categories, respectively.
+        (I picked these specific numbers somewhat arbitrarily, but with certain constraints that will be clear in a moment.)
+      </p>
+    
+    </div>
     <div class="viz-host" data-template="chart-risk-buckets-dots"></div>
-    <div class="caption">Buckets view: HIGH vs LOW risk, showing group mix and poisoned centers.</div>
-  </section>
-
-  <hr/><section>
-    <h2 id="counts">Counts view (stacked)</h2>
+     <div class="article-text">
+    <p>There seems to be a problem. There are <i>way</i> more purple grapes in the “high-risk” category, and <i>way</i> more green grapes in the “low-risk" category. In fact, if we try to visualize this data, we can see this more clearly.</p>
+  </div>
+   
     <div class="viz-host" data-template="chart-1"></div>
-    <div class="caption">Raw counts across group × risk label.</div>
+    <div class="article-text">
+    <p>What we can see clearly is that the number of purple grapes is much larger than the number of green grapes in the “<i>high</i>-risk” category, 
+      and the number of green grapes is much larger than the number of purple grapes in the “<i>low</i>-risk" category.</p>
+    <p>But this, on its own, doesn’t necessarily mean that the tool is unfairly biased. 
+      Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at is the <i>percentages</i>. 
+      For example, what <i>percentage</i> of purple grapes in the “high-risk” category are poisoned? 
+      How does this compare to the percentage of <i>green</i> grapes in the “high-risk” category? (We would then ask the same questions about the “low-risk” category.) </p>
+    </div>
+  
   </section>
 
   <section>
-    <h2 id="composition">Composition view (percent bars)</h2>
+    
+    <h2 id="composition">Percentages of Risk Labels Across Groups</h2>
+    <div class="article-text">
+    <p>It turns out that the tool we used to sort grapes into different categories ends up with <i>exactly</i> the same percentages across groups. More specifically, exactly 60 percent of both purple and green grapes are poisoned in the “high-risk” category, and exactly 20% of both purple and green grapes are poisoned in the “low-risk" category. 
+      (This is no accident - I picked specific numbers for how the tool makes predictions to ensure this.  This is also, by design, the same accuracy that
+      COMPAS had.) </p>
+</div> 
     <div class="viz-host" data-template="chart-2"></div>
-    <div class="caption">Composition within each risk label (calibration within label).</div>
-  </section>
+      
+    <div class="article-text">
+    <p>In machine learning contexts, this is called “calibration”. 
+      A risk score, like the risk scores our hypothetical tools assigns to grapes, is calibrated within groups just in case among the individuals who have the same risk score, 
+      the actual probability of the outcome is the same, regardless of which group they belong to.<sup><a href="#fn2" id="ref2">2</a></sup>
+        
+        <p>
+        
+        For us, if the same percentage of purple grapes and green grapes are poisoned in the “high-risk” category (and similarly for the “low-risk” category), then our risk scoring is calibrated.  Essentially, a purple grape and a green grape with the same risk score (high-risk or low-risk) must have the same probability of being poisoned.</p>
+          </p>
+        <p>If a prediction tool is calibrated, it seems as if the tool is <i>fair</i>. In contrast, if it is not calibrated - if say, a green and purple grape in the "high-risk" category have a different probability of being poisoned - it seems as if it is <i>unfair</i>.</p>
+      <p> This is exactly what Northpointe claimed. COMPAS was calibrated across groups; a Black individual and a White individual with the same risk score had the same probability of re-offending.</p>
+      <p>But calibration doesn’t tell us the whole story, and this is exactly what <i>ProPublica</i> claimed. ProPublica conceded that COMPAS was calibrated but <i>still</i> claimed it was unfair.</p>
+    </div>
+    </section>
 
   <section>
-    <h2 id="grouped">Risk labels grouped by grape color</h2>
-    <div class="viz-host" data-template="chart-3"></div>
-    <div class="caption">Side-by-side Purple vs Green on wide screens; rounded bars.</div>
-  </section>
-
-    <section>
-    <h2 id="fpr-difference">False positive rates differ</h2>
-    <p class="lede">
-      <b>[FILLER]</b> First, notice the baseline disparity. Here we condition on <b>safe</b> grapes and ask:
-      what fraction are still labeled HIGH (false positives)? Purple safe grapes are much more likely to be labeled HIGH than green safe grapes.
-      <b>[EDIT THIS]</b>
-    </p>
+    <h2 id="grouped">False Positive Rates Differ</h2>
+     
+    <div class="article-text">
+    <p>To see why that might be, let’s turn back to our grape model, and this time, look at a different graphic.</p>
+      </div>
+      <div class="viz-host" data-template="chart-3"></div>
+         <div class="article-text">
+      <p>We are still looking at high-risk and low-risk grapes, but this time, they are grouped by grape color. 
+        Now, notice that there are grapes, of both colors, that were put in the “high-risk” category but are completely safe. 
+        These are <i>false positives</i>, grapes that are actually safe but incorrectly labeled “high-risk”. For an imperfect prediction tool, 
+        it’s inevitable that there will be <i>some</i> false positives; we could only completely avoid false positives if the tool was 100 percent accurate at predicting which grapes were poisoned and which ones were safe.</p>
+      <p>The important thing to notice now is that our prediction tool resulted in false positives at <i>different rates</i>, depending on the grape color. 
+        Look at the “Purple Grapes” section (on the left) and notice how many purple grapes were put in the “high-risk” category, but are completely safe. 
+        (For purple grapes, there are 300 safe grapes in the “high-risk" category, and only 200 safe grapes put in the “low-risk” category.) 
+        Now, look at the “Green Grapes" section (on the right) and notice that there are very few safe grapes in the “high-risk” category. 
+        (For green grapes, there are just 50 safe grapes in the “high-risk" category, and as many as <i>700</i> in the “low-risk” category.)</p>
+      <p>What we can see is that the <i>false positive rate</i> is different across different color groups. The false positive rate for a given group
+         is the percentage of grapes that were incorrectly marked “high-risk”.<sup><a href="#fn3" id="ref3">3</a></sup> We can see this clearly below. (The false <i>negative</i> rate, the rate at which poisoned grapes 
+         were put into the "low-risk" category, is also <i>higher</i> for green grapes, but let's focus on the false positive rate here.)</p>
+    </div>
     <div class="viz-host" data-template="chart-4-original"></div>
-    <div class="caption">Before any intervention: Purple FPR = 60%, Green FPR = 6.7%.</div>
+  <div class="article-text">
+    <p>There are 300 purple grapes marked "high-risk" but that are actually safe. This is out of a total of 500 safe purple grapes. So, the false positive rate for purple grapes is 60 percent. 
+      On the other hand, there are 50 green grapes that are marked "high-risk" but are actually safe. This is out of a total of 750 green grapes. 
+      So, the false positive rate for green grapes is only 6.7 percent.</p>
+   
+    
+   
+    
+      <p>In short, the false positive rate for purple grapes is 60 percent, but only 6.7 percent for green grapes. 
+        Think about it like this. Suppose we threw out every grape marked "high-risk". Now, if you're a <i>safe, purple</i> grape, you have a <i>60 percent</i> chance of wrongly being thrown out. 
+        There you are, minding your own business with no ability to poison anyone, but 60 percent of the time, you'll be thrown out anyway. On the other hand, 
+        if you're a <i>safe, green</i> grape, you only have a <i>6.7 percent</i> chance of wrongly being thrown out. This seems <i>unfair</i>.</p>
+    
+    <p>This is precisely what ProPublica argued. Even though COMPAS was <i>calibrated</i> – Black and White individuals with the same risk score had the same probability of re-offending – it had different <i>error rates</i>. For example, the <i>false positive rate</i> was much higher for Black individuals than for White individuals. As a result, black individuals who did not re-offend were much more likely to be <i>predicted</i> to be high-risk than their White counterparts. 
+      These individuals were denied parole, forced to pay higher bails, denied release, and even given longer sentences. 
+      The <i>burdens</i> of the errors that the tool made were disproportionately falling on Black individuals. (The false negative rate was also higher for White individuals, but again, let's just focus on the false positive rate.)</p>
+     </div>
   </section>
 
 <section>
-    <h2 id="fpr">False positive rate (among safe grapes)</h2>
-    <div class="viz-host" data-template="chart-4"></div>
-    <div class="caption">Condition on safe grapes: FPR = safe labeled HIGH / total safe.</div>
+    <h2 id="impossibility">Impossibility</h2>
+     <div class="article-text">
+    <p>Given this issue with COMPAS, it seems natural to think that we should adjust COMPAS so that it no longer has different false positive rates for Black and White individuals. Ideally, our tool would be calibrated (same risk scores, same probability of re-offense) <i>and</i> have equal error rates.</p>
+    <p>But it turns out, in any realistic situation, this is <i>mathematically impossible</i>. In a pair of results independently achieved by Alexandra Chouldechova, and then later by Jon Kleinberg, Sendhil Mullainathan, and Manish Raghavan, it was proven that in any realistic situation, you cannot simultaneously have calibration <i>and</i> equal error rates. They proved that in any realistic situation, if we have a calibrated tool, then it must have different error rates, and if it has equal error rates, it must violate calibration.</p>
+    <p>What do I mean here by “realistic situation”? There are two conditions that need to be met for the impossibility result to hold. First, the tool isn’t <i>perfectly</i> accurate. A calibrated tool that is perfectly accurate, will, by definition, make no errors, so the error rate will be 0. So, unless some tool is able to predict with 100 percent accuracy whether an individual will re-offend or not, this condition is met.</p>
+    <p>Second, and more importantly, there are different <i>base rates</i> between groups. In our grape model, this meant that green grapes and purple grapes were not poisoned at <i>exactly</i> the same rates. In the real-life situation, this means that Black individuals and White individuals don’t re-offend at exactly the same rate.</p>
+    <p>Now, there may be many reasons for this. Note that, as I mentioned above, the difference in "base rates" isn't a difference in <i>re-offense</i> rates, but a difference <i>re-arrest</i> rates. Perhaps, 
+      as I mentioned above, this difference is partly due to an excess of policing and surveillance of Black neighborhoods. But even setting this aside,
+      there are many factors that correlate with recidivism that are unevenly distributed between Black and White people. Poverty and income instability, unemployment, housing instability, and less access
+      to education and training can increase the probability of re-offense. If there are disparities in these factors between Black and White invididuals, this might also partly explain differences in base rates. 
+      
+      Further, returning to a neighboorhood with higher crime rates and weaker social services may <i>cause</i> a higher likelihood of re-offending. 
+      If there are already exist higher crime rates with weaker social services in Black neighborhoods, these differences can be exacerbated.<sup><a href="#fn4" id="ref4">4</a></sup>
+      
+      </p>
+    <p>Whatever the possible explanations, the important point here is that the base rates differed. If they differ, a calibrated tool that is not 100 percent accurate will make errors at different rates, by mathematical necessity.</p>
+    </div>
+    
+   
   </section>
+
+<section>
+    <h2 id="understanding1">Understanding Impossibility: Calibration but Unequal Error Rates</h2>
+   <div class="article-text">
+    <p>The proofs I mentioned above were for <i>any</i> possible (imperfect) model, with <i>any</i> given population that had differing base rates. 
+      It was a general proof. 
+      But it might be worth seeing the main idea at work in an example that gives a sense of how (in a realistic situation) calibration and equal error rates are mutually incompatible.
+    Let’s turn back to our grape model one last time.
+    </p>
+      
+
+    
+    <p>
+      First, why does satisying calibration imply that there will be different error rates? 
+    </p>
+    <p>
+      Let's look at our calibrated prediction tool. For both purple and green grapes, a grape in the "high-risk" category has a 60 percent chance of being poisoned and a grape 
+      in the "low-risk" category has a 20 percent chance of being poisoned. (This is the same graphic as above.)
+
+    </p>
+   
+</div>
+<div class="viz-host" data-template="chart-2"></div>
+<div class="article-text">
+
+<p>
+  Now - and this is the key - purple and green grapes have different <i>base rates</i>. Overall, 50 percent of purple grapes are poisoned and only 25 percent of green grapes
+  are poisoned.
+
+</p>
+
+
+
+
+<p>
+Because of that, two things happen. First, to get calibration, it has to be that in the "high-risk" category, the percentage of poisoned purple grapes equals the percent of poisoned green grapes. 
+  So, the prediction tool puts a <i>higher percent</i> of the purple grapes into the "high-risk" bin. (If it didn't - if say, it put exactly 50 percent of the purple grapes and exactly
+  50 percent of the green grapes, then because of the different base rates, the probability of a high-risk grape being poisoned would differ across groups, violating calibration.) 
+  Now, because the tool isn't perfect - high-risk grapes are still 40 percent safe - this will inevitably mean
+  putting a higher percentage of <i>safe</i> purple grapes into the "high-risk" bin than green grapes. 
+  
+
+</p>
+
+<p>
+  Second, because the base rates differ, a higher percent of green grapes are safe compared to purple grapes. 
+</p>
+
+ <p>
+        Now, in our model, the false postive rate is
+        
+
+        \[
+\frac{\text{# of safe grapes labeled high-risk}}{\text{# of safe grapes}}
+\]
+    </p>
+
+<p>
+
+  We have seen that (1) the percent of safe <i>purple</i> grapes in the "high-risk" bin is pushed higher, and at the same time,
+  (2) the percent of safe <i>green</i> grapes is higher than the percent of safe <i>purple</i> grapes.
+  In other words, the numerator is pushed up for purple grapes and the denominator is pushed up for green grapes. So, the false positive rate goes up for purple grapes and down for green grapes. That's why 
+  calibration forces the false positive rate to differ when base rates differ. 
+
+</p>
+
+</div>
+
+<h2 id="understanding2">Understanding Impossibility: Equalized Error Rates but No Calibration</h2>
+<div class="article-text">  
+<p>Now, let's try to understand the other direction - why does equalizing the error rates violate calibration?</p>
+    
+    <p>Let’s look at our grape model again. Suppose we noticed that the error rates differed based on the grape color: for purple grapes, the false positive rate was 60 percent but for green grapes, the false positive rate was only 6.7 percent. </p>
+    
+    <p>Suppose we tried to tinker with the algorithm to fix this, say, by adjusting the predictions so that the false positive rate equalized. We would have to explicitly tell the algorithm, “If you see a purple grape use the old procedure, but if you see a green grape, use this <i>new</i> procedure so that it is more likely to end up in the ‘high-risk’ category.’</p>
+    <p>Let’s say we adjust the algorithm so that it puts 500 more green grapes in the “high-risk” category instead of the “low-risk” one. Now, there are 1375 grapes in the “high-risk” category, and many more of them are green grapes.</p>
+ </div>    
+    <div class="viz-host" data-template="chart-1-rebalanced"></div>
+  <div class="article-text">  
+    <p>By moving green grapes into the “high-risk” category, we have made it so that more green grapes are incorrectly marked as “high-risk”. This, based on the numbers of grapes we have, equalizes the false positive rates across groups.</p>
+     </div>  
+    <div class="viz-host" data-template="chart-4"></div>
+    <div class="article-text">  
+    <p>But to do this, remember, we had to change the algorithm in our prediction tool! We had to adjust it, so that a green grape with a low predicted probability of being poisoned would still end up in the “high-risk” category. 
+      We had to do this, while still using the same algorithm for purple grapes. 
+      Because of this, we end up with different percentages of poisoned grapes across risk categories. (This is unlike <a href="#composition">before</a>, in which the percentages of poisoned grapes were identical across risk categories.) 
+      It’s no longer the case that exactly same the percent of poisoned grapes end up in “high-risk” and “low-risk” categories respectively. </p>
+     </div>  
+    
+    
+    <div class="viz-host" data-template="chart-2-broken"></div>
+<div class="article-text">  
+<p>The tool, in other words, is no longer calibrated.</p>
+
+
+</section>
+<section>
+<h2 id="conclusion">Conclusion</h2>
+<div class="article-text">  
+<p>What is the takeaway of all this? We can put the problem like this. 
+  There are two views we might have on fairness in this machine learning context. 
+  On one view of fairness, the <i>calibration</i> view, a fair prediction algorithm is one that is <i>calibrated</i>. 
+  Any two individuals from two different groups with the same risk score should have the same probability of re-offending. 
+  Defenders of this view would argue that violating this would mean using a different procedure for individuals of different groups. 
+  On another view of fairness, the <i>error rate</i> view, a fair prediction algorithm is one that has equalized error rates across groups. 
+  Defenders of this view would argue that violating this would mean that one group disproportionately bears the burden of errors made by the tool. </p>
+<p>And the takeaway is that in any realistic situation, it's mathematically impossible for us to design a tool that satisfies both.</p>
+
+<p>Which is the right view of fairness in this context? Check out Part Two!</p>
+</div> 
+</section>
 
 <!-- =========================================================
      Counts view (stacked)
      Source: risk_stacked.html
-========================================================== -->
-  <section>
-    <h2 id="composition-broken">Risk Labels Across Two Groups</h2>
-    <p class="lede">
-      <b>[FILLER]</b> Now suppose we intervene to equalize false positive rates by moving more green grapes into the HIGH risk bucket.
-      This changes the meaning of the HIGH label for green grapes. The same risk label no longer corresponds to the same outcome rate
-      across groups. <b>[EDIT THIS]</b>
-    </p>
-    <div class="viz-host" data-template="chart-2-broken"></div>
-    <div class="caption">After rebalancing, HIGH is no longer calibrated across groups (Purple vs Green differ).</div>
-  </section>
+========================================================== -->  
+
+
 
   <section>
-    <h2 id="references">References</h2>
-    <p class="lede">
-      <b>[FILLER]</b> Add references below. Replace these placeholders with real citations.
-    </p>
-    <ol class="references" style="margin-top:12px; line-height:1.8; padding-left:22px; color:#3a342f;">
-      <li>Author, A. (Year). <i>Title of article</i>. Journal Name.</li>
-      <li>Author, B. (Year). <i>Title of book</i>. Publisher.</li>
-      <li>Author, C. (Year). “Title of paper.” Conference or Working Paper Series.</li>
-      <li>Author, D. (Year). “Title.” <i>Journal</i>, volume(issue), pages.</li>
-    </ol>
-  </section>
+    <h2 id="footnotes">Footnotes</h2>
+    <div class="article-text">  
+  <p id="fn1"></p> <sup>1</sup>
+  Here is some evidence to support this. A very well-cited study, <a href="https://openpolicing.stanford.edu/findings/">Stanford Open Policing Project</a>, 
+  analyzed 100 million traffic stops across the U.S. and found 
+  that Black drivers are stopped more often than White drivers, relative to their share in the population. Another <a href="https://sc.edu/uofsc/posts/2020/06/racial_disparities_traffic_stops.php">study</a> 
+  found that Black drivers are also <i>searched</i> more often that White drivers. Finally, here is a <a href="https://arxiv.org/abs/2109.12491">study</a> that found that police presence is higher in Black neighborhoods.
+  
+  <a href="#ref1">↩</a>
+  <p id="fn2">
+    <sup>2</sup> Here is a formal definition. For a given outcome \(Y\), and groups \(a\) and \(b\), and a risk score \(s\), calibration requires that 
+      
+    
+        \[
+        P(Y=+ \mid S=s, A=a) = P(Y=+ \mid S=s, A=b), \quad \forall s \in S, \; \forall a,b \in A.
+        \]
+    This is saying that the probability that a given outcome occurs (\(Y=+\)) is the same, for any two individuals from two different groups \(a\) and \(b\), <i>given that</i> the model’s risk score \(S\) for both of those individuals is the same, \(s\).<a href="#ref2">↩</a>
+
+
+  </p>
+
+  <p id="fn3">
+      <sup>3</sup> Here is a formal definition.
+      
+      
+      \[
+\mathrm{FPR} = P(\hat{Y}=+ \mid Y=-)
+\]
+This says that the false positive rate is equal to the probability that a predicted label (\(\hat{Y}\)) predicts a certain outcome (\(\hat{Y}=1\)), but the outcome (\(Y\)) does not occur (\(Y=-\)).<a href="#ref3">↩</a>
+  </p>
+
+
+  <p id="fn4">
+      <sup>4</sup> Here is a large criminology <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6387636/">study</a> that found that unemployed individuals had much higher likelihood of being reincarcerated than
+      employed individuals. Here is a <a href="https://www.tandfonline.com/doi/full/10.1080/10509674.2024.2406755">study</a> that reviewed recidivism research and found low education as a major prediction
+      of reoffending after prison. Here is a <a href="https://www.sciencedirect.com/science/article/pii/S0049089X15301228">study</a> that found that many formerly incarcerated people return to 
+      neighborhoods characterized by povery, unemployment, and high crime, and that returning to these neighborhoods increases the risk of reoffending after prison. Finally, here is a longitudinal 
+      <a href="https://www.tandfonline.com/doi/full/10.1080/07352166.2018.1495041">study</a> that found that Black and Hispanic individuals tend to return to more disadvantaged neighboorhoods than White 
+      individuals, even accounting for differences in neighboorhoods before prison.
+      <a href="#ref4">↩</a>
+  </p>
+
+</div> 
+</section>
+
+
+
 
 <template id="chart-1">
   <style>
@@ -256,11 +551,8 @@
   </style>
 
 <header>
-  <h1>Risk Labels Across Two Groups</h1>
-  <p class="subtitle">
-    Stacked bars show composition (poisoned vs safe) within <b>HIGH</b> and <b>LOW</b> risk labels for each group.
-    Totals match your specified counts exactly.
-  </p>
+  <h1>Risk Labels Across Two Groups (Numbers)</h1>
+
 </header>
 
 <div class="wrap">
@@ -277,12 +569,9 @@
     <div class="grid">
       <div class="panel">
         <h2>HIGH risk</h2>
-        <div class="meta">
-          Purple: 750 labeled high risk → 450 poisoned (60%), 300 safe (40%)<br/>
-          Green: 125 labeled high risk → 75 poisoned (60%), 50 safe (40%)
-        </div>
+        
         <svg viewBox="0 0 420 220" aria-label="High risk stacked bars">
-          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT (people)</text>
+          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT</text>
           <line x1="70" y1="180" x2="400" y2="180" stroke="rgba(26,20,16,0.25)" stroke-width="1.5"/>
           <g>
             <line x1="70" y1="180" x2="70" y2="186" stroke="rgba(26,20,16,0.25)"/>
@@ -319,12 +608,9 @@
 
       <div class="panel">
         <h2>LOW risk</h2>
-        <div class="meta">
-          Purple: 250 labeled low risk → 50 poisoned (20%), 200 safe (80%)<br/>
-          Green: 875 labeled low risk → 175 poisoned (20%), 700 safe (80%)
-        </div>
+        
         <svg viewBox="0 0 420 220" aria-label="Low risk stacked bars">
-          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT (people)</text>
+          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT</text>
           <line x1="70" y1="180" x2="400" y2="180" stroke="rgba(26,20,16,0.25)" stroke-width="1.5"/>
           <g>
             <line x1="70" y1="180" x2="70" y2="186" stroke="rgba(26,20,16,0.25)"/>
@@ -363,9 +649,7 @@
       </div>
     </div>
 
-    <p class="note">
-      If you want, I can swap this to “percent bars” (both bars same length) or add a confusion-matrix view next.
-    </p>
+    
   </div>
 </div>
 
@@ -386,6 +670,229 @@ const tip = root.querySelector('#tip');
   });
   </script>
 </template>
+
+<template id="chart-1-rebalanced">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background:#f7f4ef; color:#1a1410;
+    font-family:'DM Mono', monospace;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    padding:40px 24px 60px;
+  }
+  header{ text-align:center; margin-bottom:22px; max-width:900px; }
+  h1{
+    font-family:'Fraunces', serif; font-weight:700;
+    font-size:clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing:-0.02em; margin-bottom:8px;
+  }
+  .subtitle{ font-size:0.74rem; color:#8a7f72; letter-spacing:0.04em; line-height:1.55; }
+  .wrap{ width:100%; max-width:900px; }
+  .card{
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(26,20,16,0.10);
+    border-radius:18px;
+    padding:18px 16px 14px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+  }
+  .toprow{
+    display:flex; flex-wrap:wrap; gap:10px 16px;
+    align-items:flex-start; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .pill{
+    font-size:0.68rem; color:#5a5248;
+    border:1px solid rgba(26,20,16,0.14);
+    background:rgba(247,244,239,0.7);
+    padding:7px 10px; border-radius:999px;
+    display:inline-flex; gap:10px; align-items:center;
+  }
+  .pill b{ color:#1a1410; font-weight:600; }
+  .legend{
+    display:flex; gap:16px; flex-wrap:wrap; align-items:center;
+    margin-top:6px;
+    font-size:0.68rem; color:#5a5248;
+  }
+  .swatch{
+    width:14px; height:14px; border-radius:4px;
+    border:1px solid rgba(26,20,16,0.25);
+    display:inline-block; margin-right:8px;
+  }
+  .swatch.poison{ background:#d9352a; border-color:rgba(217,53,42,0.55); }
+  .swatch.safe{ background:rgba(26,20,16,0.06); border-color:rgba(26,20,16,0.25); }
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:14px;
+    margin-top:12px;
+  }
+  @media (min-width: 780px){
+    .grid{ grid-template-columns: 1fr 1fr; }
+  }
+  .panel{
+    padding:14px 14px 10px;
+    border:1px solid rgba(26,20,16,0.10);
+    border-radius:16px;
+    background:rgba(247,244,239,0.60);
+  }
+  .panel h2{
+    font-family:'Fraunces', serif;
+    font-weight:700; font-size:1.05rem;
+    margin-bottom:4px;
+  }
+  .panel .meta{
+    font-size:0.68rem; color:#8a7f72; line-height:1.6;
+    margin-bottom:10px;
+  }
+  svg{ width:100%; height:auto; display:block; }
+  .axis-label{ font-size:11px; fill:#5a5248; font-weight:700; letter-spacing:0.05em; }
+  .small{ font-size:10px; fill:#8a7f72; }
+  .bar-outline{ fill:none; stroke:rgba(26,20,16,0.25); stroke-width:1.5; }
+  .bar-safe{ fill:rgba(26,20,16,0.06); }
+  .bar-poison{ fill:#d9352a; }
+  .group-green{ stroke:#2d9e5f; }
+  .group-purple{ stroke:#8b3fcf; }
+  .glabel{ font-size:12px; fill:#1a1410; font-weight:700; }
+  .tooltip{
+    position:fixed;
+    background:#1a1410; color:#f7f4ef;
+    font-size:0.7rem;
+    padding:8px 12px; border-radius:8px;
+    pointer-events:none; opacity:0;
+    transition:opacity 0.12s;
+    line-height:1.6;
+    white-space:nowrap;
+    z-index:100;
+  }
+  .note{
+    margin-top:12px; font-size:0.68rem;
+    color:#9a8e82; line-height:1.7;
+    text-align:center;
+  }
+  </style>
+
+<header>
+  <h1>New Risk Labels Across Two Groups (Numbers)</h1>
+
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <div class="toprow">
+      <div class="pill"><b>High risk</b> total: 1375 · purple 750 · green 625</div>
+      <div class="pill"><b>Low risk</b> total: 625 · purple 250 · green 375</div>
+      <div class="legend">
+        <span><span class="swatch poison"></span>Poisoned</span>
+        <span><span class="swatch safe"></span>Safe</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>HIGH risk</h2>
+        
+        <svg viewBox="0 0 420 220" aria-label="High risk stacked bars">
+          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT</text>
+          <line x1="70" y1="180" x2="400" y2="180" stroke="rgba(26,20,16,0.25)" stroke-width="1.5"/>
+          <g>
+            <line x1="70" y1="180" x2="70" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="70" y="204" class="small" text-anchor="middle">0</text>
+
+            <line x1="180" y1="180" x2="180" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="180" y="204" class="small" text-anchor="middle">250</text>
+
+            <line x1="290" y1="180" x2="290" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="290" y="204" class="small" text-anchor="middle">500</text>
+
+            <line x1="400" y1="180" x2="400" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="400" y="204" class="small" text-anchor="middle">750</text>
+          </g>
+
+          <text x="14" y="78" class="glabel" text-anchor="start">Purple</text>
+          <rect x="70" y="58" width="330" height="34" rx="10" class="bar-safe"/>
+          <rect x="70" y="58" width="198" height="34" rx="10" class="bar-poison"/>
+          <rect x="70" y="58" width="330" height="34" rx="10" class="bar-outline group-purple"/>
+          <text x="70" y="50" class="small" text-anchor="start">450 poisoned · 300 safe (n=750)</text>
+
+          <text x="14" y="138" class="glabel" text-anchor="start">Green</text>
+          <rect x="70" y="118" width="275" height="34" rx="10" class="bar-safe"/>
+          <rect x="70" y="118" width="77" height="34" rx="10" class="bar-poison"/>
+          <rect x="70" y="118" width="275" height="34" rx="10" class="bar-outline group-green"/>
+          <text x="70" y="110" class="small" text-anchor="start">175 poisoned · 450 safe (n=625)</text>
+
+          <rect x="70" y="58" width="330" height="34" rx="10" fill="transparent"
+            data-tip="HIGH risk — Purple: 750 total · 450 poisoned (60%) · 300 safe (40%)"/>
+          <rect x="70" y="118" width="275" height="34" rx="10" fill="transparent"
+            data-tip="HIGH risk — Green: 625 total · 175 poisoned (28%) · 450 safe (72%)"/>
+        </svg>
+      </div>
+
+      <div class="panel">
+        <h2>LOW risk</h2>
+        
+        <svg viewBox="0 0 420 220" aria-label="Low risk stacked bars">
+          <text x="210" y="20" class="axis-label" text-anchor="middle">COUNT</text>
+          <line x1="70" y1="180" x2="400" y2="180" stroke="rgba(26,20,16,0.25)" stroke-width="1.5"/>
+          <g>
+            <line x1="70" y1="180" x2="70" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="70" y="204" class="small" text-anchor="middle">0</text>
+
+            <line x1="164.2857" y1="180" x2="164.2857" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="164.2857" y="204" class="small" text-anchor="middle">250</text>
+
+            <line x1="258.5714" y1="180" x2="258.5714" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="258.5714" y="204" class="small" text-anchor="middle">500</text>
+
+            <line x1="352.8571" y1="180" x2="352.8571" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="352.8571" y="204" class="small" text-anchor="middle">750</text>
+
+            <line x1="400" y1="180" x2="400" y2="186" stroke="rgba(26,20,16,0.25)"/>
+            <text x="400" y="204" class="small" text-anchor="middle">875</text>
+          </g>
+
+          <text x="14" y="78" class="glabel" text-anchor="start">Purple</text>
+          <rect x="70" y="58" width="94.2857" height="34" rx="10" class="bar-safe"/>
+          <rect x="70" y="58" width="18.8571" height="34" rx="10" class="bar-poison"/>
+          <rect x="70" y="58" width="94.2857" height="34" rx="10" class="bar-outline group-purple"/>
+          <text x="70" y="50" class="small" text-anchor="start">50 poisoned · 200 safe (n=250)</text>
+
+          <text x="14" y="138" class="glabel" text-anchor="start">Green</text>
+          <rect x="70" y="118" width="141.4286" height="34" rx="10" class="bar-safe"/>
+          <rect x="70" y="118" width="28.2857" height="34" rx="10" class="bar-poison"/>
+          <rect x="70" y="118" width="141.4286" height="34" rx="10" class="bar-outline group-green"/>
+          <text x="70" y="110" class="small" text-anchor="start">75 poisoned · 300 safe (n=375)</text>
+
+          <rect x="70" y="58" width="94.2857" height="34" rx="10" fill="transparent"
+            data-tip="LOW risk — Purple: 250 total · 50 poisoned (20%) · 200 safe (80%)"/>
+          <rect x="70" y="118" width="141.4286" height="34" rx="10" fill="transparent"
+            data-tip="LOW risk — Green: 375 total · 75 poisoned (20%) · 300 safe (80%)"/>
+        </svg>
+      </div>
+    </div>
+
+ 
+  </div>
+</div>
+
+<div class="tooltip" id="tip"></div>
+
+  <script>
+const tip = root.querySelector('#tip');
+  function showTip(e, text){
+    tip.style.opacity = '1';
+    tip.style.left = (e.clientX + 14) + 'px';
+    tip.style.top  = (e.clientY - 10) + 'px';
+    tip.textContent = text;
+  }
+  function hideTip(){ tip.style.opacity = '0'; }
+  root.querySelectorAll('[data-tip]').forEach(el => {
+    el.addEventListener('mousemove', (e) => showTip(e, el.getAttribute('data-tip')));
+    el.addEventListener('mouseleave', hideTip);
+  });
+  </script>
+</template>
+
 <!-- =========================================================
      Composition view (percent bars)
      Source: risk_percent.html
@@ -495,11 +1002,8 @@ const tip = root.querySelector('#tip');
   </style>
 
 <header>
-  <h1>Risk Labels Across Two Groups</h1>
-  <p class="subtitle">
-    Percent bars: each bar is the <b>same length</b> within a risk label, so you read composition (poisoned vs safe) as percentages.
-    Counts are shown above each bar.
-  </p>
+  <h1>Risk Labels Across Two Groups (Percentages)</h1>
+
 </header>
 
 <div class="wrap">
@@ -517,10 +1021,7 @@ const tip = root.querySelector('#tip');
       <!-- HIGH -->
       <div class="panel">
         <h2>HIGH risk</h2>
-        <div class="meta">
-          Purple: 750 total → 450 poisoned (60%), 300 safe (40%)<br/>
-          Green: 125 total → 75 poisoned (60%), 50 safe (40%)
-        </div>
+        
         <svg viewBox="0 0 420 220" aria-label="High risk percent bars">
           <text x="210" y="20" class="axis-label" text-anchor="middle">PERCENT OF THIS RISK LABEL</text>
 
@@ -568,10 +1069,7 @@ const tip = root.querySelector('#tip');
       <!-- LOW -->
       <div class="panel">
         <h2>LOW risk</h2>
-        <div class="meta">
-          Purple: 250 total → 50 poisoned (20%), 200 safe (80%)<br/>
-          Green: 875 total → 175 poisoned (20%), 700 safe (80%)
-        </div>
+        
         <svg viewBox="0 0 420 220" aria-label="Low risk percent bars">
           <text x="210" y="20" class="axis-label" text-anchor="middle">PERCENT OF THIS RISK LABEL</text>
 
@@ -613,10 +1111,7 @@ const tip = root.querySelector('#tip');
       </div>
     </div>
 
-    <p class="note">
-      This view makes the “calibration within label” point visually immediate: both groups have the same 60/40 split in HIGH and 20/80 split in LOW,
-      even though the number of people placed in HIGH differs a lot (Purple 750 vs Green 125).
-    </p>
+    
   </div>
 </div>
 
@@ -743,11 +1238,8 @@ const tip = root.querySelector('#tip');
   </style>
 
 <header>
-  <h1>Risk Labels Across Two Groups</h1>
-  <p class="subtitle">
-    Percent bars: each bar is the <b>same length</b> within a risk label, so you read composition (poisoned vs safe) as percentages.
-    Counts are shown above each bar.
-  </p>
+  <h1>Calibration Breaks</h1>
+
 </header>
 
 <div class="wrap">
@@ -861,10 +1353,7 @@ const tip = root.querySelector('#tip');
       </div>
     </div>
 
-    <p class="note">
-      This view shows what happens after rebalancing: the HIGH label is no longer calibrated across groups (Purple is 60/40, but Green becomes 28/72), even though LOW remains 20/80.
-      even though the number of people placed in HIGH differs a lot (Purple 750 vs Green 125).
-    </p>
+
   </div>
 </div>
 
@@ -963,9 +1452,7 @@ const tip = root.querySelector('#tip');
 
 <header>
 <h1>Risk Labels Grouped by Grape Color</h1>
-<p class="subtitle">
-    Within each grape color, bars show how many people are labeled HIGH vs LOW risk and their composition.
-  </p>
+
 </header>
 <div class="wrap">
 <div class="card">
@@ -975,13 +1462,10 @@ const tip = root.querySelector('#tip');
 
 <div class="grid"><div class="panel">
 <h2>Purple Grapes</h2>
-<div class="meta">
-        Total 1000 · 500 poisoned · 500 safe<br/>
-        750 labeled HIGH · 250 labeled LOW
-      </div>
+
 <svg viewbox="0 0 420 240">
 <!-- Axis -->
-<text class="axis-label" text-anchor="middle" x="210" y="20">COUNT (people)</text>
+<text class="axis-label" text-anchor="middle" x="210" y="20">COUNT</text>
 <line stroke="rgba(26,20,16,0.25)" stroke-width="1.5" x1="70" x2="400" y1="200" y2="200"></line>
 <!-- Ticks -->
 <line stroke="rgba(26,20,16,0.25)" x1="70" x2="70" y1="200" y2="206"></line>
@@ -1007,12 +1491,9 @@ const tip = root.querySelector('#tip');
 </svg>
 </div><div class="panel">
 <h2>Green Grapes</h2>
-<div class="meta">
-        Total 1000 · 250 poisoned · 750 safe<br/>
-        125 labeled HIGH · 875 labeled LOW
-      </div>
+
 <svg viewbox="0 0 420 240">
-<text class="axis-label" text-anchor="middle" x="210" y="20">COUNT (people)</text>
+<text class="axis-label" text-anchor="middle" x="210" y="20">COUNT</text>
 <line stroke="rgba(26,20,16,0.25)" stroke-width="1.5" x1="70" x2="400" y1="200" y2="200"></line>
 <line stroke="rgba(26,20,16,0.25)" x1="70" x2="70" y1="200" y2="206"></line>
 <text class="small" text-anchor="middle" x="70" y="220">0</text>
@@ -1035,10 +1516,7 @@ const tip = root.querySelector('#tip');
 <rect class="outline-green" height="30" rx="10" width="330" x="70" y="130"></rect>
 <text class="small" x="70" y="122">175 poisoned · 700 safe (n=875)</text>
 </svg>
-</div></div><p class="note">
-      This grouping highlights how differently each grape color is distributed across HIGH and LOW risk categories.
-    </p>
-</div>
+
 </div>
 
   <script>
@@ -1173,11 +1651,8 @@ const tip = root.querySelector('#tip');
   </style>
 
 <header>
-  <h1>False Positive Rate (Among Safe Grapes)</h1>
-  <p class="subtitle">
-    Here, we look only at <b>safe</b> grapes. A “false positive” is a safe grape labeled <b>HIGH</b> risk.
-    Each bar is 100% of the safe grapes in that color.
-  </p>
+  <h1>New False Positive Rate </h1>
+
 </header>
 
 <div class="wrap">
@@ -1186,12 +1661,12 @@ const tip = root.querySelector('#tip');
     <div class="callouts">
       <div class="pill"><b>Purple FPR</b> = 300 / 500 = 60%</div>
       <div class="pill"><b>Green FPR</b> = 450 / 750 = 60%</div>
-      <div class="pill"><b>Gap</b> = 0 (rates equalized)</div>
+      <div class="pill"><b>Gap</b> = 0</div>
     </div>
 
     <div class="legend">
-      <span><span class="swatch fp"></span>False positives (safe labeled HIGH)</span>
-      <span><span class="swatch tn"></span>True negatives (safe labeled LOW)</span>
+      <span><span class="swatch fp"></span>False positives</span>
+      <span><span class="swatch tn"></span>True negatives</span>
     </div>
 
     <div class="grid">
@@ -1199,7 +1674,7 @@ const tip = root.querySelector('#tip');
       <div class="panel">
         <h2>Purple Grapes</h2>
         <div class="meta">Safe total: 500 · High-risk among safe: 300 · Low-risk among safe: 200</div>
-        <div class="big">60% <span class="muted">of safe grapes labeled HIGH</span></div>
+        <div class="big">60% <span class="muted">of safe grapes labeled "high"</span></div>
 
         <svg viewBox="0 0 420 150" aria-label="Purple safe percent bar">
           <text x="210" y="18" class="axis-label" text-anchor="middle">PERCENT OF SAFE GRAPES</text>
@@ -1235,7 +1710,7 @@ const tip = root.querySelector('#tip');
       <div class="panel">
         <h2>Green Grapes</h2>
         <div class="meta">Safe total: 750 · High-risk among safe: 450 · Low-risk among safe: 300</div>
-        <div class="big">60% <span class="muted">of safe grapes labeled HIGH</span></div>
+        <div class="big">60% <span class="muted">of safe grapes labeled "high"</span></div>
 
         <svg viewBox="0 0 420 150" aria-label="Green safe percent bar">
           <text x="210" y="18" class="axis-label" text-anchor="middle">PERCENT OF SAFE GRAPES</text>
@@ -1259,8 +1734,8 @@ const tip = root.querySelector('#tip');
           <rect x="70" y="58" width="198" height="36" rx="12" class="bar-fp"/>
           <rect x="70" y="58" width="330" height="36" rx="12" class="bar-outline outline-green"/>
 
-          <text x="86" y="81" class="pct" text-anchor="start">60% HIGH</text>
-          <text x="290" y="81" class="pct" text-anchor="middle">40% LOW</text>
+          <text x="169" y="81" class="pct" text-anchor="middle">60% HIGH</text>
+          <text x="334" y="81" class="pct" text-anchor="middle">40% LOW</text>
 
           <rect x="70" y="58" width="330" height="36" rx="12" fill="transparent"
             data-tip="Green safe grapes: 450/750 labeled HIGH (false positives) · 300/750 labeled LOW"/>
@@ -1268,9 +1743,7 @@ const tip = root.querySelector('#tip');
       </div>
     </div>
 
-    <p class="note">
-      This chart conditions on “safe grapes,” so the highlighted red segment is exactly the false positive rate.
-    </p>
+ 
   </div>
 </div>
 
@@ -1416,11 +1889,8 @@ const tip = root.querySelector('#tip');
   </style>
 
 <header>
-  <h1>False Positive Rate (Among Safe Grapes)</h1>
-  <p class="subtitle">
-    Here, we look only at <b>safe</b> grapes. A “false positive” is a safe grape labeled <b>HIGH</b> risk.
-    Each bar is 100% of the safe grapes in that color.
-  </p>
+  <h1>False Positive Rate</h1>
+  
 </header>
 
 <div class="wrap">
@@ -1433,16 +1903,16 @@ const tip = root.querySelector('#tip');
     </div>
 
     <div class="legend">
-      <span><span class="swatch fp"></span>False positives (safe labeled HIGH)</span>
-      <span><span class="swatch tn"></span>True negatives (safe labeled LOW)</span>
+      <span><span class="swatch fp"></span>False positives (safe labeled "high")</span>
+      <span><span class="swatch tn"></span>True negatives (safe labeled "low")</span>
     </div>
 
     <div class="grid">
       <!-- PURPLE -->
       <div class="panel">
         <h2>Purple Grapes</h2>
-        <div class="meta">Safe total: 500 · High-risk among safe: 300 · Low-risk among safe: 200</div>
-        <div class="big">60% <span class="muted">of safe grapes labeled HIGH</span></div>
+        
+        <div class="big">60% <span class="muted">of safe grapes labeled "high-risk"</span></div>
 
         <svg viewBox="0 0 420 150" aria-label="Purple safe percent bar">
           <text x="210" y="18" class="axis-label" text-anchor="middle">PERCENT OF SAFE GRAPES</text>
@@ -1477,8 +1947,8 @@ const tip = root.querySelector('#tip');
       <!-- GREEN -->
       <div class="panel">
         <h2>Green Grapes</h2>
-        <div class="meta">Safe total: 750 · High-risk among safe: 50 · Low-risk among safe: 700</div>
-        <div class="big">6.7% <span class="muted">of safe grapes labeled HIGH</span></div>
+        
+        <div class="big">6.7% <span class="muted">of safe grapes labeled "high-risk"</span></div>
 
         <svg viewBox="0 0 420 150" aria-label="Green safe percent bar">
           <text x="210" y="18" class="axis-label" text-anchor="middle">PERCENT OF SAFE GRAPES</text>
@@ -1511,9 +1981,7 @@ const tip = root.querySelector('#tip');
       </div>
     </div>
 
-    <p class="note">
-      This chart conditions on “safe grapes,” so the highlighted red segment is exactly the false positive rate.
-    </p>
+   
   </div>
 </div>
 
@@ -1650,9 +2118,7 @@ const tip = root.querySelector('#tip');
   </style>
 <header>
   <h1>Base Rates: Poisoned vs Safe</h1>
-  <p class="subtitle">
-    Each bar represents 1000 grapes of a given color, split into <b>poisoned</b> and <b>safe</b>.
-  </p>
+
 </header>
 
 <div class="wrap">
@@ -1735,9 +2201,7 @@ const tip = root.querySelector('#tip');
 
     </div>
 
-    <p class="note">
-      These base rates drive differences in error rates even when the model is calibrated within risk labels.
-    </p>
+    
   </div>
 </div>
 
@@ -1824,10 +2288,8 @@ const tip = root.querySelector('#tip');
   /* Make native SVG <title> tooltips feel less jarring on touch */
   </style>
 <header>
-  <h1>All Grapes, Jumbled Together</h1>
-  <p class="subtitle">
-    Each dot is one grape (total: <b>2000</b>). The circle color shows grape group (purple/green). A <b>red center</b> marks poisoned grapes.
-  </p>
+  <h1>2000 Grapes</h1>
+  
 </header>
 
 <div class="wrap">
@@ -4597,7 +5059,7 @@ const tip = root.querySelector('#tip');
     </div>
 
     <p class="note">
-      Purple: 500 poisoned / 500 safe. Green: 250 poisoned / 750 safe. Dots are shuffled (fixed seed) to avoid ordering artifacts.
+      Purple: 500 poisoned / 500 safe. Green: 250 poisoned / 750 safe.
     </p>
   </div>
 </div>
@@ -4693,11 +5155,8 @@ const tip = root.querySelector('#tip');
   }
   </style>
 <header>
-  <h1>Sorting Grapes into Risk Buckets</h1>
-  <p class="subtitle">
-    The tool assigns each grape to one of two buckets. Dots are colored by grape group (purple/green).
-    A <b>red center</b> marks poisoned grapes (consistent with the data).
-  </p>
+  <h1>Sorting Grapes into Risk Categories</h1>
+
 </header>
 
 <div class="wrap">
@@ -7501,10 +7960,7 @@ const tip = root.querySelector('#tip');
 
     </div>
 
-    <p class="note">
-      This is the same dataset as before, now shown after the tool sorts grapes into HIGH vs LOW risk labels.
-      (Purple: 500 poisoned/500 safe; Green: 250 poisoned/750 safe overall.)
-    </p>
+
   </div>
 </div>
 </template>
