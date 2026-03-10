@@ -67,7 +67,7 @@ sup {
 <body>
 <main>
   <h1>The Impossible Quest for Fair Algorithms</h1>
-    <div class="subtitle">
+    <div class="article-subtitle">
     Why bail and sentencing algorithms face an unavoidable tradeoff
   </div>
   
@@ -96,6 +96,7 @@ sup {
   </nav>
     <div class="article-text">
     <p>In Shawshank Redemption (1994), one of the film’s main characters, Red, played by Morgan Freeman, repeatedly appears before a parole board. Each time, the parole board asks him the same question: 
+      </p>
     <p><i>“Do you feel you’ve been rehabilitated?”</i></p>
     <p>He gives careful, rehearsed answers to try to convince them that he has been rehabilitated, but each time, they deny him parole. Finally, at the end of the film, he bluntly responds that he doesn’t think he understands what the word “rehabilitated” means, and that he thinks that the concept is something the board has made up. After that hearing, the board grants him parole. The audience is left with the feeling that the parole board has no clear, rigorous criteria for making parole decisions; they depend on the whims and fancies of individuals who use their intuition and personal judgment to make decisions about whether or not to grant an individual their freedom.</p>
     <p>The film is set between the 1940s and the 1960s, before more sophisticated techniques were put in place to make parole decisions. Nowadays, prediction tools use sophisticated algorithms, taking into account a wide variety of factors, including an individual’s criminal history, age at first arrest, substance abuse, employment history, family background, and even attitudes toward crime. </p>
@@ -125,12 +126,12 @@ sup {
     
     <div class="viz-host" data-template="chart-jumbled-2000"></div>
     <div class="article-text">
-    <p>There are many reasons why this model isn’t like the real-life case, besides the fact that that the real-life case is about actual human beings and the model is about grapes. Here are a few worth 
+    <p>There are many reasons why this model isn’t like the real-life case, besides the fact that the real-life case is about actual human beings and the model is about grapes. Here are a few worth 
       highlighting.
       First, COMPAS gave individuals risk scores between 1 and 10, while our tool is more coarse-grained. It only sorts individuals into "high-risk" and "low-risk" categories. 
     Second, in our model, grapes are either poisoned or not poisoned, and this is fixed before our tool even looks at them. In the real-life case,
-    inviduals in prison that were give higher risk scores by COMPAS were often denied parole and detained for longer. This might affect the outcomes - maybe someone who was given 
-  a higer risk score and detained will <i>because of that</i> become more or less likely to reoffend in the future. So, we might worry that in the real-life case, predictions
+    individuals in prison that were given higher risk scores by COMPAS were often denied parole and detained for longer. This might affect the outcomes - maybe someone who was given 
+  a higher risk score and detained will <i>because of that</i> become more or less likely to re-offend in the future. So, we might worry that in the real-life case, predictions
   were having (at least some) affect on the outcomes. Third, since we made up data about the grapes, we know exactly how many grapes are poisoned or safe. In the real-life case, however,
     the data had to be collected. But, naturally, the data we are
     able to collect is not about whether individuals <i>re-offend</i>, but about whether individuals are <i>re-arrested</i>. If, for example, Black neighborhoods are more likely to be policed, 
@@ -139,7 +140,7 @@ sup {
 
 </p>
 <p>
-  But for our purposes these differences won't matter, since they won't affect the points in this article. Also, because of its simplifications, the toy model will be easier to use.
+  But for our purposes, these differences won't matter, since they won't affect the points in this article. Also, because of its simplifications, the toy model will be easier to use.
 </p>
   </div>
   </section>
@@ -170,9 +171,9 @@ sup {
       It doesn’t know what we know about these grapes; it doesn’t know which ones are poisoned and which ones are safe. 
       It sorts grapes into two categories, “high-risk” and “low-risk”, based on some historical data. </p>
       
-      <p>Suppose that it isn't perfect: it puts some grapes that are actually poisoned in the "low-risk" category and some that are actually safe in the "high-risk" category
+      <p>Suppose that it isn't perfect: it puts some grapes that are actually poisoned in the "low-risk" category and some that are actually safe in the "high-risk" category.
         But it is fairly accurate.</p>
-        <p>Say that it splits the purple grapes, 750 and 250, into the "high-risk and "low-risk" categories, and it splits the green grapes, 125 and 875, into the "high-risk and "low-risk" categories, respectively.
+        <p>Say that it splits the purple grapes, 750 and 250, into the "high-risk" and "low-risk" categories, and it splits the green grapes, 125 and 875, into the "high-risk and "low-risk" categories, respectively.
         (I picked these specific numbers somewhat arbitrarily, but with certain constraints that will be clear in a moment.)
       </p>
     
@@ -187,7 +188,7 @@ sup {
     <p>What we can see clearly is that the number of purple grapes is much larger than the number of green grapes in the “<i>high</i>-risk” category, 
       and the number of green grapes is much larger than the number of purple grapes in the “<i>low</i>-risk" category.</p>
     <p>But this, on its own, doesn’t necessarily mean that the tool is unfairly biased. 
-      Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at is the <i>percentages</i>. 
+      Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at are the <i>percentages</i>. 
       For example, what <i>percentage</i> of purple grapes in the “high-risk” category are poisoned? 
       How does this compare to the percentage of <i>green</i> grapes in the “high-risk” category? (We would then ask the same questions about the “low-risk” category.) </p>
     </div>
@@ -254,7 +255,7 @@ sup {
         There you are, minding your own business with no ability to poison anyone, but 60 percent of the time, you'll be thrown out anyway. On the other hand, 
         if you're a <i>safe, green</i> grape, you only have a <i>6.7 percent</i> chance of wrongly being thrown out. This seems <i>unfair</i>.</p>
     
-    <p>This is precisely what ProPublica argued. Even though COMPAS was <i>calibrated</i> – Black and White individuals with the same risk score had the same probability of re-offending – it had different <i>error rates</i>. For example, the <i>false positive rate</i> was much higher for Black individuals than for White individuals. As a result, black individuals who did not re-offend were much more likely to be <i>predicted</i> to be high-risk than their White counterparts. 
+    <p>This is precisely what ProPublica argued. Even though COMPAS was <i>calibrated</i> – Black and White individuals with the same risk score had the same probability of re-offending – it had different <i>error rates</i>. For example, the <i>false positive rate</i> was much higher for Black individuals than for White individuals. As a result, Black individuals who did not re-offend were much more likely to be <i>predicted</i> to be high-risk than their White counterparts. 
       These individuals were denied parole, forced to pay higher bails, denied release, and even given longer sentences. 
       The <i>burdens</i> of the errors that the tool made were disproportionately falling on Black individuals. (The false negative rate was also higher for White individuals, but again, let's just focus on the false positive rate.)</p>
      </div>
@@ -267,13 +268,13 @@ sup {
     <p>But it turns out, in any realistic situation, this is <i>mathematically impossible</i>. In a pair of results independently achieved by Alexandra Chouldechova, and then later by Jon Kleinberg, Sendhil Mullainathan, and Manish Raghavan, it was proven that in any realistic situation, you cannot simultaneously have calibration <i>and</i> equal error rates. They proved that in any realistic situation, if we have a calibrated tool, then it must have different error rates, and if it has equal error rates, it must violate calibration.</p>
     <p>What do I mean here by “realistic situation”? There are two conditions that need to be met for the impossibility result to hold. First, the tool isn’t <i>perfectly</i> accurate. A calibrated tool that is perfectly accurate, will, by definition, make no errors, so the error rate will be 0. So, unless some tool is able to predict with 100 percent accuracy whether an individual will re-offend or not, this condition is met.</p>
     <p>Second, and more importantly, there are different <i>base rates</i> between groups. In our grape model, this meant that green grapes and purple grapes were not poisoned at <i>exactly</i> the same rates. In the real-life situation, this means that Black individuals and White individuals don’t re-offend at exactly the same rate.</p>
-    <p>Now, there may be many reasons for this. Note that, as I mentioned above, the difference in "base rates" isn't a difference in <i>re-offense</i> rates, but a difference <i>re-arrest</i> rates. Perhaps, 
+    <p>Now, there may be many reasons for this. Note that, as I mentioned above, the difference in "base rates" isn't a difference in <i>re-offense</i> rates, but a difference in <i>re-arrest</i> rates. Perhaps, 
       as I mentioned above, this difference is partly due to an excess of policing and surveillance of Black neighborhoods. But even setting this aside,
       there are many factors that correlate with recidivism that are unevenly distributed between Black and White people. Poverty and income instability, unemployment, housing instability, and less access
-      to education and training can increase the probability of re-offense. If there are disparities in these factors between Black and White invididuals, this might also partly explain differences in base rates. 
+      to education and training can increase the probability of re-offense. If there are disparities in these factors between Black and White individuals, this might also partly explain differences in base rates. 
       
-      Further, returning to a neighboorhood with higher crime rates and weaker social services may <i>cause</i> a higher likelihood of re-offending. 
-      If there are already exist higher crime rates with weaker social services in Black neighborhoods, these differences can be exacerbated.<sup><a href="#fn4" id="ref4">4</a></sup>
+      Further, returning to a neighborhood with higher crime rates and weaker social services may <i>cause</i> a higher likelihood of re-offending. 
+      If there already exist higher crime rates with weaker social services in Black neighborhoods, these differences can be exacerbated.<sup><a href="#fn4" id="ref4">4</a></sup>
       
       </p>
     <p>Whatever the possible explanations, the important point here is that the base rates differed. If they differ, a calibrated tool that is not 100 percent accurate will make errors at different rates, by mathematical necessity.</p>
@@ -294,7 +295,7 @@ sup {
 
     
     <p>
-      First, why does satisying calibration imply that there will be different error rates? 
+      First, why does satisfying calibration imply that there will be different error rates? 
     </p>
     <p>
       Let's look at our calibrated prediction tool. For both purple and green grapes, a grape in the "high-risk" category has a 60 percent chance of being poisoned and a grape 
@@ -330,7 +331,7 @@ Because of that, two things happen. First, to get calibration, it has to be that
 </p>
 
  <p>
-        Now, in our model, the false postive rate is
+        Now, in our model, the false positive rate is
         
 
         \[
@@ -367,7 +368,7 @@ Because of that, two things happen. First, to get calibration, it has to be that
     <p>But to do this, remember, we had to change the algorithm in our prediction tool! We had to adjust it, so that a green grape with a low predicted probability of being poisoned would still end up in the “high-risk” category. 
       We had to do this, while still using the same algorithm for purple grapes. 
       Because of this, we end up with different percentages of poisoned grapes across risk categories. (This is unlike <a href="#composition">before</a>, in which the percentages of poisoned grapes were identical across risk categories.) 
-      It’s no longer the case that exactly same the percent of poisoned grapes end up in “high-risk” and “low-risk” categories respectively. </p>
+      It’s no longer the case that exactly the same percent of poisoned grapes end up in “high-risk” and “low-risk” categories respectively. </p>
      </div>  
     
     
@@ -390,6 +391,8 @@ Because of that, two things happen. First, to get calibration, it has to be that
 <p>And the takeaway is that in any realistic situation, it's mathematically impossible for us to design a tool that satisfies both.</p>
 
 <p>Which is the right view of fairness in this context? Check out <a href="https://firdaus-gupte.github.io/blog">Part Two</a>!</p>
+
+
 </div> 
 </section>
 
@@ -436,10 +439,10 @@ This says that the false positive rate is equal to the probability that a predic
   <p id="fn4">
       <sup>4</sup> Here is a large criminology <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6387636/">study</a> that found that unemployed individuals had much higher likelihood of being reincarcerated than
       employed individuals. Here is a <a href="https://www.tandfonline.com/doi/full/10.1080/10509674.2024.2406755">study</a> that reviewed recidivism research and found low education as a major prediction
-      of reoffending after prison. Here is a <a href="https://www.sciencedirect.com/science/article/pii/S0049089X15301228">study</a> that found that many formerly incarcerated people return to 
-      neighborhoods characterized by povery, unemployment, and high crime, and that returning to these neighborhoods increases the risk of reoffending after prison. Finally, here is a longitudinal 
-      <a href="https://www.tandfonline.com/doi/full/10.1080/07352166.2018.1495041">study</a> that found that Black and Hispanic individuals tend to return to more disadvantaged neighboorhoods than White 
-      individuals, even accounting for differences in neighboorhoods before prison.
+      of re-offending after prison. Here is a <a href="https://www.sciencedirect.com/science/article/pii/S0049089X15301228">study</a> that found that many formerly incarcerated people return to 
+      neighborhoods characterized by poverty, unemployment, and high crime, and that returning to these neighborhoods increases the risk of re-offending after prison. Finally, here is a longitudinal 
+      <a href="https://www.tandfonline.com/doi/full/10.1080/07352166.2018.1495041">study</a> that found that Black and Hispanic individuals tend to return to more disadvantaged neighborhoods than White 
+      individuals, even accounting for differences in neighborhoods before prison.
       <a href="#ref4">↩</a>
   </p>
 
