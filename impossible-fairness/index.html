@@ -72,7 +72,9 @@ sup {
   </div>
   
   <div class="byline" style="margin-top:10px; margin-bottom:26px; font-size:0.85rem; color:#6b6258;">
-    <a href="https://firdaus-gupte.github.io/blog/">Firdaus Gupte</a>
+    <div style="font-weight:600;">
+  <a href="https://firdaus-gupte.github.io/blog/">Firdaus Gupte</a>
+</div>
     <div style="margin-top:2px;">March 9, 2026</div>
   </div>
 
@@ -187,10 +189,7 @@ sup {
     <div class="article-text">
     <p>What we can see clearly is that the number of purple grapes is much larger than the number of green grapes in the “<i>high</i>-risk” category, 
       and the number of green grapes is much larger than the number of purple grapes in the “<i>low</i>-risk" category.</p>
-    <p>But this, on its own, doesn’t necessarily mean that the tool is unfairly biased. 
-      Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at are the <i>percentages</i>. 
-      For example, what <i>percentage</i> of purple grapes in the “high-risk” category are poisoned? 
-      How does this compare to the percentage of <i>green</i> grapes in the “high-risk” category? (We would then ask the same questions about the “low-risk” category.) </p>
+    
     </div>
   
   </section>
@@ -199,9 +198,12 @@ sup {
     
     <h2 id="composition">Percentages of Risk Labels Across Groups</h2>
     <div class="article-text">
+      <p>But this, on its own, doesn’t necessarily mean that the tool is unfairly biased. 
+      Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at are the <i>percentages</i>. 
+      For example, what <i>percentage</i> of purple grapes in the “high-risk” category are poisoned? 
+      How does this compare to the percentage of <i>green</i> grapes in the “high-risk” category? (We would then ask the same questions about the “low-risk” category.) </p>
     <p>It turns out that the tool we used to sort grapes into different categories ends up with <i>exactly</i> the same percentages across groups. More specifically, exactly 60 percent of both purple and green grapes are poisoned in the “high-risk” category, and exactly 20% of both purple and green grapes are poisoned in the “low-risk" category. 
-      (This is no accident - I picked specific numbers for how the tool makes predictions to ensure this.  This is also, by design, the same accuracy that
-      COMPAS had.) </p>
+      (This is no accident - I picked specific numbers for how the tool makes predictions to ensure this.) </p>
 </div> 
     <div class="viz-host" data-template="chart-2"></div>
       
@@ -357,7 +359,9 @@ Because of that, two things happen. First, to get calibration, it has to be that
     <p>Let’s look at our grape model again. Suppose we noticed that the error rates differed based on the grape color: for purple grapes, the false positive rate was 60 percent but for green grapes, the false positive rate was only 6.7 percent. </p>
     
     <p>Suppose we tried to tinker with the algorithm to fix this, say, by adjusting the predictions so that the false positive rate equalized. We would have to explicitly tell the algorithm, “If you see a purple grape use the old procedure, but if you see a green grape, use this <i>new</i> procedure so that it is more likely to end up in the ‘high-risk’ category.’</p>
-    <p>Let’s say we adjust the algorithm so that it puts 500 more green grapes in the “high-risk” category instead of the “low-risk” one. Now, there are 1375 grapes in the “high-risk” category, and many more of them are green grapes.</p>
+    <p>Let’s say we adjust the algorithm so that it puts 500 more green grapes in the “high-risk” category instead of the “low-risk” one. (I picked "500" in order to equalize the base rates, as 
+      will be clear in a moment.)
+      Now, there are 1375 grapes in the “high-risk” category, and many more of them are green grapes.</p>
  </div>    
     <div class="viz-host" data-template="chart-1-rebalanced"></div>
   <div class="article-text">  
