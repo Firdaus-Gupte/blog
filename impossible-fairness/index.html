@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7TY5M4BKC3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7TY5M4BKC3');
-</script>
-  
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -146,8 +135,7 @@ sup {
     individuals in prison that were given higher risk scores by COMPAS were often denied parole and detained for longer. This might affect the outcomes - maybe someone who was given 
   a higher risk score and detained will <i>because of that</i> become more or less likely to re-offend in the future. So, we might worry that in the real-life case, predictions
   were having (at least some) affect on the outcomes. Third, since we made up data about the grapes, we know exactly how many grapes are poisoned or safe. In the real-life case, however,
-    the data had to be collected. But, naturally, the data we are
-    able to collect is not about whether individuals <i>re-offend</i>, but about whether individuals are <i>re-arrested</i>. If, for example, Black neighborhoods are more likely to be policed, 
+    the data had to be collected. But, naturally, the outcomes we are we are able to collect data on is not about whether individuals <i>re-offend</i>, but about whether individuals are <i>re-arrested</i>. If, for example, Black neighborhoods are more likely to be policed, 
     Black individuals are more likely to be stopped, and Black individuals are more likely to be searched, then we might worry that the data COMPAS uses doesn't completely accurately represent
     the underlying rate of offending, but rather reflects patterns of policing and arrest.<sup><a href="#fn1" id="ref1">1</a></sup>
 
@@ -214,14 +202,14 @@ sup {
       Since the groups have different <i>base rates</i> - the groups are poisoned at different rates - what we need to look at are the <i>percentages</i>. 
       For example, what <i>percentage</i> of purple grapes in the “high-risk” category are poisoned? 
       How does this compare to the percentage of <i>green</i> grapes in the “high-risk” category? (We would then ask the same questions about the “low-risk” category.) </p>
-    <p>It turns out that the tool we used to sort grapes into different categories ends up with <i>exactly</i> the same percentages across groups. More specifically, exactly 60 percent of both purple and green grapes are poisoned in the “high-risk” category, and exactly 20% of both purple and green grapes are poisoned in the “low-risk" category. 
-      (This is no accident - I picked specific numbers for how the tool makes predictions to ensure this.) </p>
+    <p>It turns out that the tool we used to sort grapes into different categories ends up with <i>exactly</i> the same percentages across groups. More specifically, exactly 60 percent of both purple and green grapes are poisoned in the “high-risk” category, and exactly 20 percent of both purple and green grapes are poisoned in the “low-risk" category. 
+      (This is no accident - I picked specific numbers about how the tool makes predictions to ensure this. In reality, the creators of COMPAS tweaked the algorithm it used to ensure this result.) </p>
 </div> 
     <div class="viz-host" data-template="chart-2"></div>
       
     <div class="article-text">
-    <p>In machine learning contexts, this is called “calibration”. 
-      A risk score, like the risk scores our hypothetical tools assigns to grapes, is calibrated within groups just in case among the individuals who have the same risk score, 
+    <p>In machine learning contexts, this is called “calibration”. Say a tool makes predictions about certain <i>outcomes</i>, like whether an individual re-offends or whether a grape is poisoned.
+      A risk score, like the risk scores our hypothetical tools assigns to grapes, is calibrated within groups just in case: among the individuals who have the same risk score, 
       the actual probability of the outcome is the same, regardless of which group they belong to.<sup><a href="#fn2" id="ref2">2</a></sup>
         
         <p>
